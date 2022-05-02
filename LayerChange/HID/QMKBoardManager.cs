@@ -52,9 +52,6 @@ namespace LayerChange.HID
 
         public void EnumarateDevice()
         {
-            int v = 0x0032;
-            int p = 0x0061;
-            var tempList = HidDevices.Enumerate(VendorId, ProductId).ToList();
             HidDevice = HidDevices.Enumerate(VendorId, ProductId).ToList()
                 .Where(hd => (ushort)hd.Capabilities.Usage == Usage && (ushort)hd.Capabilities.UsagePage == UsagePage).FirstOrDefault();
         }
