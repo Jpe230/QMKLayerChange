@@ -56,8 +56,12 @@ namespace LayerChange.HID
                 .Where(hd => (ushort)hd.Capabilities.Usage == Usage && (ushort)hd.Capabilities.UsagePage == UsagePage).FirstOrDefault();
         }
 
+
         public void ChangeLayer(int layer)
         {
+           
+            EnumarateDevice();
+
             if(HidDevice != null)
             {
                 byte[] OutData = new byte[HidDevice.Capabilities.OutputReportByteLength - 1];
@@ -66,7 +70,10 @@ namespace LayerChange.HID
                 OutData[2] = (byte)(0x0A + layer);
 
                 HidDevice.Write(OutData);
+
+                HidDevice.CloseDevice();
             }
+            
         }
     }
 }
